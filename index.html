@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>09_header</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        position: sticky;
+        background: #000;
+        color: #fff;
+        padding: 20px;
+        top: 0;
+        left: 0;
+        right: 0;
+        transition: transform 0.25s ease-out;
+        will-change: transform;
+      }
+
+      header[closed] {
+        transform: translateY(-100%);
+      }
+
+      section {
+        height: 50vh;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>HEADER</header>
+    <main>
+      <section>SECTION</section>
+      <section>SECTION</section>
+      <section>SECTION</section>
+      <section>SECTION</section>
+      <section>SECTION</section>
+    </main>
+    <script>
+      const DISTANCE = 500;
+      const header = document.querySelector("header");
+
+      let lastY = 0;
+      let closed = false;
+
+      const func = () => {
+        const y = window.scrollY;
+        const close = DISTANCE < y && lastY < y;
+
+        if (closed !== close) {
+          requestAnimationFrame(() => {
+            header.toggleAttribute("closed", close);
+          });
+        }
+
+        lastY = y;
+        closed = close;
+      };
+
+      window.addEventListener("scroll", func);
+    </script>
+  </body>
+</html>
